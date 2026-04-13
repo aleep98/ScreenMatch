@@ -23,3 +23,19 @@ O **ScreenMatch** é uma aplicação que permite registrar filmes, atribuir aval
 2. Compile os arquivos na pasta `src`.
 3. Execute a classe `Principal`.
 
+## Dependencias (Gson)
+
+O projeto usa o Gson via JAR local em `lib/gson-2.13.2.jar`. O VS Code ja esta configurado para carregar JARs de `lib/**`.
+
+Compilar (Windows PowerShell):
+
+```powershell
+javac -cp "lib/*" -d bin src\br\com\alura\screenmatch\**\*.java
+```
+
+Executar (exemplo):
+
+```powershell
+java -cp "lib/*;bin" br.com.alura.screenmatch.principal.PrincipalComBusca
+```
+

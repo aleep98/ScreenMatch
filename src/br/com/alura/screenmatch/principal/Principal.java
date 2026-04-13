@@ -1,15 +1,16 @@
+package br.com.alura.screenmatch.principal;
+
 import br.com.alura.screenmatch.modelos.Episodios;
 import br.com.alura.screenmatch.modelos.Filme;
 import br.com.alura.screenmatch.modelos.Serie;
 import br.com.alura.screenmatch.calculos.calcularTempo;
 import br.com.alura.screenmatch.calculos.FiltroRecomendacao;
+import java.util.ArrayList;
 
 public class Principal {
     public static void main(String[] args) throws Exception {
 
-        Filme meuFilme = new Filme();
-        meuFilme.setNome("Vingadores - Guerra Infinita");
-        meuFilme.setAnoLancamento(2018);
+        Filme meuFilme = new Filme("Vingadores - Guerra Infinita", 2018);
         meuFilme.setDuracaoEmMinutos(160);
         meuFilme.setIncluidoNoPlano(true);
         meuFilme.exibeFichaTecnica();
@@ -22,10 +23,7 @@ public class Principal {
 
         System.out.println("-----------------------");
 
-        Serie loki = new Serie();
-        loki.setNome("Loki");
-        loki.setAnoLancamento(2021);
-        loki.getAnoLancamento();
+        Serie loki = new Serie("Loki", 2021);
         loki.setTemporadas(3);
         loki.setEpisodiosPorTemporada(10);
         loki.setDuracaoEmMinutos(45);
@@ -33,14 +31,14 @@ public class Principal {
 
         System.out.println("Nome da série: " + loki.getNome());
         System.out.println("Está incluído no plano? " + loki.isAtiva());
-        System.out.println("Total de minutos para assistir: " + loki.getTemporadas() * loki.getEpisodiosPorTemporada() * loki.getMinutosPorEpisodio());
+        System.out.println("Total de minutos para assistir: "
+                + loki.getTemporadas() * loki.getEpisodiosPorTemporada() * loki.getMinutosPorEpisodio());
         System.out.println("Loki foi lançado em: " + loki.getAnoLancamento());
         System.out.println("Total de temporadas: " + loki.getTemporadas());
 
         System.out.println("-----------------------");
 
-         Filme outroFilme = new Filme();
-        outroFilme.setNome("Avatar");
+        Filme outroFilme = new Filme("Avatar", 2023);
         outroFilme.setAnoLancamento(2023);
         outroFilme.setDuracaoEmMinutos(200);
 
@@ -49,7 +47,6 @@ public class Principal {
         calculo.incluiNoTempo(outroFilme);
         calculo.incluiNoTempo(loki);
         System.out.println("Tempo total de filmes assistidos: " + calculo.getTempoTotal() + " minutos");
-
 
         FiltroRecomendacao filtro = new FiltroRecomendacao();
         filtro.filtra(meuFilme);
@@ -60,6 +57,14 @@ public class Principal {
         episodio.setNumero(1);
         episodio.setTotalVisualizacoes(150);
         filtro.filtra(episodio);
-        
+
+        ArrayList<Filme> novoFilme = new ArrayList<>();
+
+        novoFilme.add(meuFilme);
+        novoFilme.add(outroFilme);
+
+        System.out.println("Tamanho da Lista de Filmes: " + novoFilme.size());
+        System.out.println("Primeiro Filme: " + novoFilme.get(0));
+        System.out.println(novoFilme);
     }
 }
