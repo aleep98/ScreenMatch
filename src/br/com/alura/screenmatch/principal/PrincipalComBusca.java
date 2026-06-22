@@ -22,7 +22,6 @@ public class PrincipalComBusca {
         var busca = leitura.nextLine();
         String endereco = "http://www.omdbapi.com/?t=" + busca + "&apikey=f6f8352f";
 
-
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(endereco))
@@ -30,18 +29,26 @@ public class PrincipalComBusca {
 
         HttpResponse<String> response = client
                 .send(request, BodyHandlers.ofString());
-                System.out.println(response.body());
+        System.out.println(response.body());
 
         String json = response.body();
-        System.out.println(json);
 
-        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();;
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .create();
+
         TituloOmdb meuTituloOmdb = gson.fromJson(json, TituloOmdb.class);
         System.out.println(meuTituloOmdb);
 
-        Titulo meuTitulo = new Titulo(meuTituloOmdb.title() , Integer.valueOf(meuTituloOmdb.year()));
-        System.out.println(meuTitulo);
-        
+        try {
+            Titulo meuTitulo = new Titulo(meuTituloOmdb);
+            System.out.println(meuTitulo);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Filme não encontrado");
+            System.out.println(e.getMessage());
+        }
+
         leitura.close();
     }
 
